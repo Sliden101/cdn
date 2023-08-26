@@ -40,8 +40,18 @@
     const res = await axios(`https://wtfismyip.com/json`);
 
     console.log(res.data.YourFuckingIPAddress);
-    let ip = res.data.YourFuckingIPAddress
-    if (file && ip ) {
+    let ip = res.data.YourFuckingIPAddress;
+    const bool = await fetch('/api/ip',{
+        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ip: ip,
+            })
+
+    });
+    if (file && bool) {
         upload(file);
     }
 };
