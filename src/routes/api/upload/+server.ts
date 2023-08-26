@@ -8,7 +8,7 @@ const slugifyString = (str: string) => {
     return str.trim().toLowerCase().replace(/\s+/g, '-').replace(/\./g, '-').replace(/-+/g, '-').replace(/[^a-z0-9-]/g, '-');
 }
 
-export const POST = async ({ request }) => {
+export const POST = async ({ request }) => {    
     const { fileName, fileType, } = await request.json() as { fileName: string | undefined, fileType: string | undefined };
 
     if (!fileName || !fileType || fileName.trim() === '' || fileType.trim() === '') {
@@ -16,7 +16,6 @@ export const POST = async ({ request }) => {
     }
 
     const objectKey = `${slugifyString(Date.now().toString())}-${slugifyString(fileName)}`;
-    console.log(objectKey)
     const presignedUrl = await getSignedUrl(S3, new PutObjectCommand({
         Bucket: `${process.env.PUBLIC_S3_BUCKET_NAME}`,
         Key: objectKey,

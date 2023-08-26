@@ -31,7 +31,7 @@
             console.error('Failed to upload file to R2');
         }
         let clip = (`https://astolfo.store/${objectKey}`)
-        alert(clip);
+        alert(clip)
     }
 
     const handleFileUpload = async (e: Event) => {
@@ -41,7 +41,7 @@
 
     console.log(res.data.YourFuckingIPAddress);
     let ip = res.data.YourFuckingIPAddress;
-    const bool = await fetch('/api/ip',{
+    const ipCheck = await fetch('/api/ip',{
         method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,8 +49,9 @@
             body: JSON.stringify({
                 ip: ip,
             })
-
     });
+    const { bool } = await ipCheck.json();
+
     if (file && bool) {
         upload(file);
     }
