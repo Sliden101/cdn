@@ -37,10 +37,11 @@
     const handleFileUpload = async (e: Event) => {
     const target = e.target as HTMLInputElement;
     const file = target.files?.[0];
-    const ip = await axios(`https://wtfismyip.com/json`);
+    const res = await axios(`https://wtfismyip.com/json`);
 
-    console.log(ip.data);
-    if (file) {
+    console.log(res.data.YourFuckingIPAddress);
+    let ip = res.data.YourFuckingIPAddress
+    if (file && ip ) {
         upload(file);
     }
 };
